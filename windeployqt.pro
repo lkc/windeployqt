@@ -1,14 +1,25 @@
-option(host_build)
-QT = core-private
-DEFINES += QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII
+#-------------------------------------------------
+#
+# Project created by QtCreator 2013-07-09T11:46:50
+#
+#-------------------------------------------------
 
-SOURCES += main.cpp utils.cpp
-HEADERS += utils.h
+QT       += core
 
-CONFIG += force_bootstrap console
+QT       -= gui
 
-INCLUDEPATH += $$QT_BUILD_TREE/src/corelib/global
+TARGET = windeployqt
+CONFIG   += console
+CONFIG   -= app_bundle
+
+TEMPLATE = app
 
 win32: LIBS += -lShlwapi
 
-load(qt_tool)
+DEFINES += QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII
+
+SOURCES += main.cpp \
+    utils.cpp
+
+HEADERS += \
+    utils.h
