@@ -648,32 +648,30 @@ static DeployResult deploy(const Options &options,
     if (plugins.isEmpty())
         return result;
 
-    if (platformPlugin.isEmpty()) {
-        *errorMessage =QStringLiteral("Unable to find the platform plugin.");
-        return result;
-    }
+    if (!platformPlugin.isEmpty()) {
 
-    // Check for ANGLE on the platform plugin.
-    if (options.platform  == Windows || options.platform == WinRt)  {
-        const QStringList platformPluginLibraries = findDependentLibraries(platformPlugin, options.platform, errorMessage);
-        const QStringList libEgl = platformPluginLibraries.filter(QStringLiteral("libegl"), Qt::CaseInsensitive);
-        if (!libEgl.isEmpty()) {
-            const QString libEglFullPath = qtBinDir + slash + QFileInfo(libEgl.front()).fileName();
-            deployedQtLibraries.push_back(libEglFullPath);
-            const QStringList libGLESv2 = findDependentLibraries(libEglFullPath, options.platform, errorMessage).filter(QStringLiteral("libGLESv2"), Qt::CaseInsensitive);
-            if (!libGLESv2.isEmpty()) {
-                const QString libGLESv2FullPath = qtBinDir + slash + QFileInfo(libGLESv2.front()).fileName();
-                deployedQtLibraries.push_back(libGLESv2FullPath);
-            }
-            // Find the D3d Compiler matching the D3D library.
-            const QString d3dCompiler = findD3dCompiler();
-            if (d3dCompiler.isEmpty()) {
-                std::fprintf(stderr, "Warning: Cannot find any version of the d3dcompiler DLL.\n");
-            } else {
-                deployedQtLibraries.push_back(d3dCompiler);
-            }
-        } // !libEgl.isEmpty()
-    } // Windows
+        // Check for ANGLE on the platform plugin.
+        if (options.platform  == Windows || options.platform == WinRt)  {
+            const QStringList platformPluginLibraries = findDependentLibraries(platformPlugin, options.platform, errorMessage);
+            const QStringList libEgl = platformPluginLibraries.filter(QStringLiteral("libegl"), Qt::CaseInsensitive);
+            if (!libEgl.isEmpty()) {
+                const QString libEglFullPath = qtBinDir + slash + QFileInfo(libEgl.front()).fileName();
+                deployedQtLibraries.push_back(libEglFullPath);
+                const QStringList libGLESv2 = findDependentLibraries(libEglFullPath, options.platform, errorMessage).filter(QStringLiteral("libGLESv2"), Qt::CaseInsensitive);
+                if (!libGLESv2.isEmpty()) {
+                    const QString libGLESv2FullPath = qtBinDir + slash + QFileInfo(libGLESv2.front()).fileName();
+                    deployedQtLibraries.push_back(libGLESv2FullPath);
+                }
+                // Find the D3d Compiler matching the D3D library.
+                const QString d3dCompiler = findD3dCompiler();
+                if (d3dCompiler.isEmpty()) {
+                    std::fprintf(stderr, "Warning: Cannot find any version of the d3dcompiler DLL.\n");
+                } else {
+                    deployedQtLibraries.push_back(d3dCompiler);
+                }
+            } // !libEgl.isEmpty()
+        } // Windows
+    }
 
     // Update libraries
     if (options.libraries) {
