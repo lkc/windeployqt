@@ -1,0 +1,10 @@
+*.o
+moc_*
+ui_*
+*.moc
+Makefile
+Makefile.Debug
+Makefile.Release
+*.pro.user
+*.dll
+*.exe
