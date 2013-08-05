@@ -329,7 +329,7 @@ static bool findDependentQtLibraries(const QString &qtBinDir, const QString &bin
     // Filter out the Qt libraries. Note that depends.exe finds libs from optDirectory if we
     // are run the 2nd time (updating). We want to check against the Qt bin dir libraries
     const int start = result->size();
-    const QRegExp filterRegExp(QStringLiteral("Qt5"), Qt::CaseInsensitive, QRegExp::FixedString);
+    const QRegExp filterRegExp(QStringLiteral("Qt5|libgcc|libstdc|libwinpthread"), Qt::CaseInsensitive);
     foreach (const QString &qtLib, dependentLibs.filter(filterRegExp)) {
         const QString path = normalizeFileName(qtBinDir + QLatin1Char('/') + QFileInfo(qtLib).fileName());
         if (!result->contains(path))
