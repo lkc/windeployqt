@@ -645,9 +645,6 @@ static DeployResult deploy(const Options &options,
     if (optVerboseLevel > 1)
         std::fprintf(stderr, "Plugins: %s\n", qPrintable(plugins.join(QLatin1Char(','))));
 
-    if (plugins.isEmpty())
-        return result;
-
     if (!platformPlugin.isEmpty()) {
 
         // Check for ANGLE on the platform plugin.
