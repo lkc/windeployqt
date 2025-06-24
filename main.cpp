@@ -69,7 +69,8 @@ enum QtModule {
     QtV8Module = 0x40000,
     QtWidgetsModule = 0x80000,
     QtWebKitModule = 0x100000,
-    QtWebKitWidgetsModule = 0x200000
+    QtWebKitWidgetsModule = 0x200000,
+    QtSerialPortModule = 0x400000
 };
 
 struct QtModuleEntry {
@@ -101,7 +102,8 @@ QtModuleEntry qtModuleEntries[] = {
     { QtV8Module, "v8", "Qt5V8", 0 },
     { QtWebKitModule, "webkit", "Qt5WebKit", 0 },
     { QtWebKitWidgetsModule, "webkitwidgets", "Qt5WebKitWidgets", 0 },
-    { QtWidgetsModule, "widgets", "Qt5Widgets", "qtbase" }
+    { QtWidgetsModule, "widgets", "Qt5Widgets", "qtbase" },
+    { QtSerialPortModule, "serialport", "Qt5SerialPort", 0 }
 };
 
 static QByteArray formatQtModules(unsigned mask, bool option = false)
